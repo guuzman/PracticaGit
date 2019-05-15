@@ -1,0 +1,110 @@
+import java.util.Scanner;
+public class Cola
+{
+    Scanner leer = new Scanner(System.in);
+
+    private int array[];
+    private int fin;
+    private int inicio;
+    private int tam;
+    private static int numColas;
+    
+    public Cola(int tam)
+    {
+        this.array = new int[tam];
+        this.fin = 0;
+        this.inicio = -1;
+        this.tam = tam;
+        numColas ++;
+    }
+    
+    public int totColas()
+    {
+        return this.numColas;
+    }
+    
+    public int decremento()
+    {
+        return this.numColas--;
+    }
+
+    public boolean colaVacia()
+    {
+        if(this.inicio == this.fin)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean colaLlena()
+    {
+        if(this.inicio == this.tam-1)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public void push(int valor)
+    {
+        if(!this.colaLlena())
+        {
+            this.inicio++;
+            this.array[inicio]=valor;
+        }
+        else
+        {
+            System.out.print("La cola ya está llena");
+        }
+    }
+    
+    public int pop()
+    {
+        int valor = 0;
+        if(!this.colaVacia())
+        {
+            this.inicio--;
+            valor = this.array[this.inicio];
+        }
+        return valor;
+    }
+    
+    public int getUltimo()
+    {
+        int valor = 0;
+        valor = this.array[this.inicio];
+        return valor;
+    }
+    
+    public String toString()
+    {
+        return java.util.Arrays.toString(this.array);
+    }
+    
+    public int getTam()
+    {
+        return tam;
+    }
+    
+    public static Cola copiaCola(Cola obj)
+    {
+        Cola copia = new Cola(obj.getTam());
+        Cola aux = new Cola(obj.getTam());
+        
+        while(!obj.colaVacia())
+        {
+            aux.push(obj.pop());
+        }
+        
+        while(!aux.colaVacia())
+        {
+            int n = aux.pop();
+            obj.push(n);
+            copia.push(n);
+        }
+        obj.decremento();
+        
+        return copia;
+    }
+}
